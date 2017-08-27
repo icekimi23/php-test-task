@@ -1,7 +1,7 @@
 <?php
 
     $host = 'localhost';
-    $user = 'default';
+    $user = 'root';
     $password = '';
     $database = 'test-task';
 

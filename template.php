@@ -6,28 +6,37 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <title><?php echo $title ?></title>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src = "js/main.js" defer></script>
 </head>
 <body>
 
     <div class="container">
 
         Список покупок
-        <ul>
+        <ul id = "bucket">
             <?php
                 foreach ($orderItems as $item) {
-                    echo "<li>".$item['name']."</li>";
-                    echo "<button>Удалить</button>";
+                    echo "<li>";
+                    echo "<div>".$item['product_name']."</div>";
+                    echo '<input class = "id" type = "hidden" value = '.$item['product_id'].'>';
+                    echo '<input class = "amount" type = "number" value = '.$item['amount'].'>';
+                    echo "<button class = 'removeFromBucket'>Удалить</button>";
+                    echo "</li>";
                 }
             ?>
         </ul>
 
         Список товаров
-        <ul>
+        <ul id = "productList">
             <?php
                 foreach ($items as $item) {
-                    echo "<li>".$item['name']."</li>";
-                    echo '<input type = "number" value = "1"/>';
+                    echo "<li>";
+                    echo "<div>".$item['name']."</div>";
+                    echo '<input class = "id" type = "hidden" value = '.$item['product_id'].'>';
+                    echo '<input class = "amount" type = "number" value = "1"/>';
                     echo "<button class = 'addToBucket'>Добавить в корзину</button>";
+                    echo "</li>";
                 }
             ?>
         </ul>
