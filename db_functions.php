@@ -16,6 +16,22 @@ function createNewUser()
     }
 }
 
+function createNewOrder($userID)
+{
+
+    require 'db_config.php';
+
+    $db_link = mysqli_connect($host, $user, $password, $database) or die(mysqli_error());
+
+    $result = mysqli_query($db_link, "INSERT INTO  `orders` (`order_id`,`user_id`) VALUES (NULL,".mysqli_escape_string($db_link, $userID).")");
+
+    if ($result) {
+        return mysqli_insert_id($db_link);
+    } else {
+        return false;
+    }
+}
+
 // Получить товары в корзине для пользователя
 function getUserOrders($id)
 {
@@ -129,6 +145,24 @@ function removeProductFromOrder($orderID, $productID) {
     $db_link = mysqli_connect($host, $user, $password, $database) or die(mysqli_error());
 
     $query = "DELETE FROM `orders_content` WHERE `orders_content`.`order_id` = ".mysqli_escape_string($db_link, $orderID)." AND `orders_content`.`product_id` = ".mysqli_escape_string($db_link, $productID);
+
+    $result = mysqli_query($db_link, $query);
+
+    if ($result) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+function updateAmountInOrder($orderID, $productID, $newAmount){
+
+    require 'db_config.php';
+
+    $db_link = mysqli_connect($host, $user, $password, $database) or die(mysqli_error());
+
+    $query = "UPDATE `orders_content` SET  `amount` =  ".mysqli_escape_string($db_link, $newAmount)." WHERE `orders_content`.`order_id` = ".mysqli_escape_string($db_link, $orderID)." AND `orders_content`.`product_id` = ".mysqli_escape_string($db_link, $productID);
 
     $result = mysqli_query($db_link, $query);
 
