@@ -40,7 +40,7 @@ function getUserOrders($id)
 
     mysqli_query($db_link, "SET NAMES utf8");
 
-    $result = mysqli_query($db_link, "SELECT  `orders_content`.`product_id` ,  `goods`.`name` as `product_name`,  `goods`.`image` ,  `goods`.`cost` ,  `producers`.`name` ,  `orders_content`.`amount` 
+    $result = mysqli_query($db_link, "SELECT  `orders_content`.`product_id` ,  `goods`.`name` AS `product_name`,  `goods`.`image` ,  `goods`.`cost` ,  `producers`.`name` ,  `orders_content`.`amount` 
                                                 FROM  `orders_content` 
                                                 INNER JOIN  `orders` ON  `orders_content`.`order_id` =  `orders`.`order_id` 
                                                 INNER JOIN  `goods` ON  `orders_content`.`product_id` =  `goods`.`product_id` 
@@ -78,8 +78,9 @@ function getProducts($addedProductsIds)
         $cond = "";
     }
 
-    $query = "SELECT  * 
-              FROM  `goods` 
+    $query = "SELECT  `goods`.`product_id` ,  `goods`.`name` AS `product_name`,  `goods`.`image` ,  `goods`.`cost` ,  `producers`.`name` 
+              FROM  `goods`
+              INNER JOIN  `producers` ON  `goods`.`producer_id` =  `producers`.`producer_id` 
               WHERE  `goods`.`isGroup` = 0" .$cond;
 
     $result = mysqli_query($db_link, $query);
