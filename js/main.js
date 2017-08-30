@@ -44,6 +44,8 @@ function onAddToBucketClick(event) {
 
     if (!target.classList.contains('addToBucket')) return;
 
+    event.preventDefault();
+
     let liElem = target.closest('.inner-wrapper');
 
     let id = liElem.querySelector('.id').value;
@@ -66,6 +68,8 @@ function onAddToBucketClick(event) {
 function onRemoveFromBucketClick(event) {
 
     let target = event.target;
+
+    event.preventDefault();
 
     if (!target.classList.contains('removeFromBucket')) return;
 
@@ -99,7 +103,7 @@ function moveToBucket(elem) {
 function moveFromBucket(elem) {
     productList.appendChild(elem);
     let btn = elem.querySelector('.removeFromBucket');
-    btn.innerHTML = 'Добавить в корзину';
+    btn.innerHTML = 'В корзину';
     btn.className = 'addToBucket';
 }
 

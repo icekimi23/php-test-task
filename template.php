@@ -1,5 +1,10 @@
 <?php
 
+function formCategoryText($categoryArr) {
+    $categoryText = implode($categoryArr,'<img class = "arrow-right" src="images/arrow_right.svg" alt="">');
+    return $categoryText;
+}
+
 $cart_items = '';
 foreach ($orderItems as $item) {
     $cart_items .= '<div class="inner-wrapper">
@@ -16,7 +21,7 @@ foreach ($orderItems as $item) {
                                 ' . $item['name'] . '
                             </div>
                             <div class="row category">
-                                <div class = "catecory">Категория <img class = "arrow-right" src="images/arrow_right.svg" alt=""> Категория <img class = "arrow-right" src="images/arrow_right.svg" alt=""> Категория</div>
+                                <div class = "catecory">' . formCategoryText($item['categoryArr']) . '</div>
                             </div>
                             <div class="row controlBtn">
                                 <a class = "removeFromBucket" href="#">Удалить</a>
@@ -50,10 +55,10 @@ foreach ($items as $item) {
                                 ' . $item['name'] . '
                             </div>
                             <div class="row category">
-                                <div class = "catecory">Категория <img class = "arrow-right" src="images/arrow_right.svg" alt=""> Категория <img class = "arrow-right" src="images/arrow_right.svg" alt=""> Категория</div>
+                                <div class = "catecory">' . formCategoryText($item['categoryArr']) . '</div>
                             </div>
                             <div class="row controlBtn">
-                                <a class = "addToBucket" href="#">Добавить в корзину</a>
+                                <a class = "addToBucket" href="#">В корзину</a>
                             </div>
                             <div class="row"></div>
                         </div>
@@ -87,7 +92,6 @@ foreach ($items as $item) {
     <script src="js/main.js" defer></script>
 </head>
 <body>
-
 
 <div class="container">
 

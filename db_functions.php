@@ -23,7 +23,7 @@ function createNewOrder($userID)
 
     $db_link = mysqli_connect($host, $user, $password, $database) or die(mysqli_error());
 
-    $result = mysqli_query($db_link, "INSERT INTO  `orders` (`order_id`,`user_id`) VALUES (NULL,".mysqli_escape_string($db_link, $userID).")");
+    $result = mysqli_query($db_link, "INSERT INTO  `orders` (`order_id`,`user_id`) VALUES (NULL," . mysqli_escape_string($db_link, $userID) . ")");
 
     if ($result) {
         return mysqli_insert_id($db_link);
@@ -40,7 +40,7 @@ function getUserOrders($id)
 
     mysqli_query($db_link, "SET NAMES utf8");
 
-    $result = mysqli_query($db_link, "SELECT  `orders_content`.`product_id` ,  `goods`.`name` AS `product_name`,  `goods`.`image` ,  `goods`.`cost` ,  `producers`.`name` ,  `orders_content`.`amount` 
+    $result = mysqli_query($db_link, "SELECT  `orders_content`.`product_id` ,  `goods`.`name` AS `product_name`,  `goods`.`image` , `goods`.`parent_id`, `goods`.`cost` ,  `producers`.`name` ,  `orders_content`.`amount` 
                                                 FROM  `orders_content` 
                                                 INNER JOIN  `orders` ON  `orders_content`.`order_id` =  `orders`.`order_id` 
                                                 INNER JOIN  `goods` ON  `orders_content`.`product_id` =  `goods`.`product_id` 
@@ -78,10 +78,10 @@ function getProducts($addedProductsIds)
         $cond = "";
     }
 
-    $query = "SELECT  `goods`.`product_id` ,  `goods`.`name` AS `product_name`,  `goods`.`image` ,  `goods`.`cost` ,  `producers`.`name` 
+    $query = "SELECT  `goods`.`product_id` , `goods`.`parent_id`,  `goods`.`name` AS `product_name`,  `goods`.`image` ,  `goods`.`cost` ,  `producers`.`name` 
               FROM  `goods`
               INNER JOIN  `producers` ON  `goods`.`producer_id` =  `producers`.`producer_id` 
-              WHERE  `goods`.`isGroup` = 0" .$cond;
+              WHERE  `goods`.`isGroup` = 0" . $cond;
 
     $result = mysqli_query($db_link, $query);
 
@@ -94,7 +94,8 @@ function getProducts($addedProductsIds)
     }
 }
 
-function getOrderID($userID){
+function getOrderID($userID)
+{
 
     require 'db_config.php';
 
@@ -102,7 +103,7 @@ function getOrderID($userID){
 
     mysqli_query($db_link, "SET NAMES utf8");
 
-    $result = mysqli_query($db_link, "SELECT `orders`.`order_id` FROM `orders` WHERE `orders`.`user_id` = ".mysqli_escape_string($db_link, $userID));
+    $result = mysqli_query($db_link, "SELECT `orders`.`order_id` FROM `orders` WHERE `orders`.`user_id` = " . mysqli_escape_string($db_link, $userID));
 
     $rows = mysqli_affected_rows($db_link);
 
@@ -115,7 +116,8 @@ function getOrderID($userID){
 
 }
 
-function addProductToOrder($orderID, $productID, $amount){
+function addProductToOrder($orderID, $productID, $amount)
+{
 
     require 'db_config.php';
 
@@ -128,7 +130,7 @@ function addProductToOrder($orderID, $productID, $amount){
                                                     `amount`
                                                     )
                                                     VALUES (
-                                                    NULL , ".mysqli_escape_string($db_link, $orderID).",".mysqli_escape_string($db_link, $productID).",".mysqli_escape_string($db_link, $amount)."
+                                                    NULL , " . mysqli_escape_string($db_link, $orderID) . "," . mysqli_escape_string($db_link, $productID) . "," . mysqli_escape_string($db_link, $amount) . "
                                                     )");
 
     if ($result) {
@@ -139,13 +141,14 @@ function addProductToOrder($orderID, $productID, $amount){
 
 }
 
-function removeProductFromOrder($orderID, $productID) {
+function removeProductFromOrder($orderID, $productID)
+{
 
     require 'db_config.php';
 
     $db_link = mysqli_connect($host, $user, $password, $database) or die(mysqli_error());
 
-    $query = "DELETE FROM `orders_content` WHERE `orders_content`.`order_id` = ".mysqli_escape_string($db_link, $orderID)." AND `orders_content`.`product_id` = ".mysqli_escape_string($db_link, $productID);
+    $query = "DELETE FROM `orders_content` WHERE `orders_content`.`order_id` = " . mysqli_escape_string($db_link, $orderID) . " AND `orders_content`.`product_id` = " . mysqli_escape_string($db_link, $productID);
 
     $result = mysqli_query($db_link, $query);
 
@@ -157,19 +160,62 @@ function removeProductFromOrder($orderID, $productID) {
 
 }
 
-function updateAmountInOrder($orderID, $productID, $newAmount){
+function updateAmountInOrder($orderID, $productID, $newAmount)
+{
 
     require 'db_config.php';
 
     $db_link = mysqli_connect($host, $user, $password, $database) or die(mysqli_error());
 
-    $query = "UPDATE `orders_content` SET  `amount` =  ".mysqli_escape_string($db_link, $newAmount)." WHERE `orders_content`.`order_id` = ".mysqli_escape_string($db_link, $orderID)." AND `orders_content`.`product_id` = ".mysqli_escape_string($db_link, $productID);
+    $query = "UPDATE `orders_content` SET  `amount` =  " . mysqli_escape_string($db_link, $newAmount) . " WHERE `orders_content`.`order_id` = " . mysqli_escape_string($db_link, $orderID) . " AND `orders_content`.`product_id` = " . mysqli_escape_string($db_link, $productID);
 
     $result = mysqli_query($db_link, $query);
 
     if ($result) {
         return true;
     } else {
+        return false;
+    }
+
+}
+
+function formCategoryTree($productID){
+
+    $categories = array();
+
+    $productInfo = getProcuctById($productID);
+
+    while ($productInfo['parent_id'] !== null) {
+        $productInfo = getProcuctById($productInfo['parent_id']);
+        array_push($categories, $productInfo['name']);
+    }
+
+    return array_reverse($categories);
+
+}
+
+function getProcuctById($productID)
+{
+
+    require 'db_config.php';
+
+    $db_link = mysqli_connect($host, $user, $password, $database) or die(mysqli_error());
+
+    mysqli_query($db_link, "SET NAMES utf8");
+
+
+    $query = "SELECT  `goods`.`name` ,  `goods`.`parent_id`
+              FROM  `goods`
+              WHERE  `goods`.`product_id` = ".mysqli_escape_string($db_link, $productID);
+
+    $result = mysqli_query($db_link, $query);
+
+    $rows = mysqli_affected_rows($db_link);
+
+    if ($rows > 0) {
+        $row = mysqli_fetch_assoc($result);
+        return $row;
+    } elseif ($rows == 0) {
         return false;
     }
 

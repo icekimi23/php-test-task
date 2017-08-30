@@ -18,6 +18,8 @@ if (isset($userID)) {
 
     if ($orders) {
         while ($row = mysqli_fetch_assoc($orders)) {
+            $categoryArr = formCategoryTree($row['product_id']);
+            $row['categoryArr'] = $categoryArr;
             array_push ($orderItems, $row);
             array_push ($productIDs, $row['product_id']);
         }
@@ -28,6 +30,8 @@ if (isset($userID)) {
 
     if ($products) {
         while ($row = mysqli_fetch_assoc($products)) {
+            $categoryArr = formCategoryTree($row['product_id']);
+            $row['categoryArr'] = $categoryArr;
             array_push ($items, $row);
         }
     }
