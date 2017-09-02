@@ -27,13 +27,12 @@ body{
 .products .inner-wrapper {
     padding: 22px;
     margin-top: -1px;
-    border-bottom: 1px solid rgb(195,195,195);
+    /*border-bottom: 1px solid rgb(195,195,195);*/
 }
 
 .title{
     font-family: 'Open Sans Bold', sans-serif;
     color: #3260b5;
-    font
 }
 
 .category{
@@ -102,4 +101,18 @@ input{
 .addToBucket:hover{
     opacity: 1;
     color : #333333;
+}
+
+#bucket > :first-child{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#bucket > :last-child{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#productList > :not(:last-child){
+    border-bottom: 1px solid rgb(195,195,195);
 }

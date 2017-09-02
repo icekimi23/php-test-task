@@ -89,6 +89,7 @@ foreach ($items as $item) {
             integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/closest-polyfill.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>

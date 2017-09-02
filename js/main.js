@@ -98,6 +98,11 @@ function moveToBucket(elem) {
     btn.innerHTML = 'Удалить';
     btn.className = 'removeFromBucket';
 
+    let amount = elem.querySelector('.amount');
+    if (!parseInt(amount.value)){
+        amount.value = 1;
+    }
+
 }
 
 function moveFromBucket(elem) {
@@ -105,6 +110,10 @@ function moveFromBucket(elem) {
     let btn = elem.querySelector('.removeFromBucket');
     btn.innerHTML = 'В корзину';
     btn.className = 'addToBucket';
+
+    let amount = elem.querySelector('.amount');
+    amount.value = 1;
+
 }
 
 function countSummary() {
@@ -112,12 +121,11 @@ function countSummary() {
 
     let elems = bucket.querySelectorAll('.inner-wrapper');
 
-    elems.forEach(function (elem) {
-        let price = parseFloat(elem.querySelector('.price').innerHTML);
-        let amount = parseInt(elem.querySelector('.amount').value);
+    [].forEach.call(elems, function (elem) {
+        let price = parseFloat(elem.querySelector('.price').innerHTML) || 0;
+        let amount = parseInt(elem.querySelector('.amount').value) || 0;
         summary += price * amount;
     });
-
 
     let cart = document.querySelector('.cart');
     let summaryText = cart.querySelector('.summary-text');
