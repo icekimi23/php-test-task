@@ -32,7 +32,7 @@ foreach ($orderItems as $item) {
                              ' . $item['cost'] . ' руб.
                         </div>
                         <div class="col-sm-2 col-xs-6 text-center">
-                            <input class = "amount" type="number" value = ' . $item['amount'] . '>
+                            <input class = "amount" type="number" value = ' . $item['amount'] . ' min = "1">
                         </div>
     
                     </div>
@@ -66,7 +66,7 @@ foreach ($items as $item) {
                              ' . $item['cost'] . ' руб.
                         </div>
                         <div class="col-sm-2 col-xs-6 text-center">
-                            <input class = "amount" type="number" value = "1">
+                            <input class = "amount" type="number" value = "1" min = "1">
                         </div>
     
                     </div>

@@ -1,4 +1,6 @@
 let body = document.body;
+//let url = 'https://icekimi23.000webhostapp.com';
+let url = 'http://test-task.ru';
 
 let bucket = body.querySelector('#bucket');
 let productList = body.querySelector('#productList');
@@ -28,7 +30,7 @@ function onAmountChange(event) {
     let queryString = 'id=' + id + '&amount=' + amount;
 
     $.ajax({
-        url: 'http://test-task.ru/updateAmount.php',
+        url: url + '/updateAmount.php',
         method: 'POST',
         data: queryString,
         success: function (res) {
@@ -54,7 +56,7 @@ function onAddToBucketClick(event) {
     let queryString = 'id=' + id + '&amount=' + amount;
 
     $.ajax({
-        url: 'http://test-task.ru/addToBucket.php',
+        url: url + '/addToBucket.php',
         method: 'POST',
         data: queryString,
         success: function (res) {
@@ -80,7 +82,7 @@ function onRemoveFromBucketClick(event) {
     let queryString = 'id=' + id;
 
     $.ajax({
-        url: 'http://test-task.ru/removeFromBucket.php',
+        url: url + '/removeFromBucket.php',
         method: 'POST',
         data: queryString,
         success: function (res) {
