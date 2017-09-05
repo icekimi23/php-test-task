@@ -3,8 +3,6 @@
 header('Content-Type: text/html; charset=utf-8');
 require 'db_functions.php';
 
-$title = 'Hodor';
-
 if (isset($_COOKIE['userID'])){
     $userID = $_COOKIE['userID'];
 }

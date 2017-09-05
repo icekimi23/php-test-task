@@ -5,12 +5,14 @@ function createNewUser()
 
     require 'db_config.php';
 
-    $db_link = mysqli_connect($host, $user, $password, $database) or die(mysqli_error());
+    $user_id = uniqid("",true);
 
-    $result = mysqli_query($db_link, "INSERT INTO  `users` (`user_id`) VALUES (NULL)");
+    $db_link = mysqli_connect($host, $user, $password, $database) or die(mysqli_error());
+    $query = "INSERT INTO  `users` (`user_id`) VALUES ('".mysqli_escape_string($db_link, $user_id)."')";
+    $result = mysqli_query($db_link, $query);
 
     if ($result) {
-        return mysqli_insert_id($db_link);
+        return $user_id;
     } else {
         return false;
     }
@@ -22,8 +24,8 @@ function createNewOrder($userID)
     require 'db_config.php';
 
     $db_link = mysqli_connect($host, $user, $password, $database) or die(mysqli_error());
-
-    $result = mysqli_query($db_link, "INSERT INTO  `orders` (`order_id`,`user_id`) VALUES (NULL," . mysqli_escape_string($db_link, $userID) . ")");
+    $query = "INSERT INTO  `orders` (`order_id`,`user_id`) VALUES (NULL,'" . mysqli_escape_string($db_link, $userID) ."')";
+    $result = mysqli_query($db_link, $query);
 
     if ($result) {
         return mysqli_insert_id($db_link);
@@ -40,12 +42,13 @@ function getUserOrders($id)
 
     mysqli_query($db_link, "SET NAMES utf8");
 
-    $result = mysqli_query($db_link, "SELECT  `orders_content`.`product_id` ,  `goods`.`name` AS `product_name`,  `goods`.`image` , `goods`.`parent_id`, `goods`.`cost` ,  `producers`.`name` ,  `orders_content`.`amount` 
+    $query = "SELECT  `orders_content`.`product_id` ,  `goods`.`name` AS `product_name`,  `goods`.`image` , `goods`.`parent_id`, `goods`.`cost` ,  `producers`.`name` ,  `orders_content`.`amount` 
                                                 FROM  `orders_content` 
                                                 INNER JOIN  `orders` ON  `orders_content`.`order_id` =  `orders`.`order_id` 
                                                 INNER JOIN  `goods` ON  `orders_content`.`product_id` =  `goods`.`product_id` 
                                                 INNER JOIN  `producers` ON  `goods`.`producer_id` =  `producers`.`producer_id` 
-                                                WHERE  `orders`.`user_id` = " . mysqli_escape_string($db_link, $id));
+                                                WHERE  `orders`.`user_id` = '" . mysqli_escape_string($db_link, $id)."'";
+    $result = mysqli_query($db_link, $query);
 
     $rows = mysqli_affected_rows($db_link);
 
@@ -103,7 +106,8 @@ function getOrderID($userID)
 
     mysqli_query($db_link, "SET NAMES utf8");
 
-    $result = mysqli_query($db_link, "SELECT `orders`.`order_id` FROM `orders` WHERE `orders`.`user_id` = " . mysqli_escape_string($db_link, $userID));
+    $query = "SELECT `orders`.`order_id` FROM `orders` WHERE `orders`.`user_id` = '". mysqli_escape_string($db_link, $userID)."'";
+    $result = mysqli_query($db_link, $query);
 
     $rows = mysqli_affected_rows($db_link);
 

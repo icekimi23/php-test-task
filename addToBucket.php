@@ -7,7 +7,6 @@
     if (isset($userID)) {
 
         $orderID = getOrderID($userID);
-
         if ($orderID) {
 
             $productID = $_POST['id'];

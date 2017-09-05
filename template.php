@@ -29,10 +29,10 @@ foreach ($orderItems as $item) {
                             <div class="row"></div>
                         </div>
                         <div class="col-sm-2 col-xs-6 text-center price">
-                             ' . $item['cost'] . ' руб.
+                             <p class = "visible-xs" style = "color:#F5BE00">Цена</p>' . $item['cost'] . ' руб.
                         </div>
                         <div class="col-sm-2 col-xs-6 text-center">
-                            <input class = "amount" type="number" value = ' . $item['amount'] . ' min = "1">
+                            <p class = "visible-xs" style = "color:#F5BE00;font-family: \'Open Sans Bold\', sans-serif;">Кол-во</p><input class = "amount" type="number" value = ' . $item['amount'] . ' min = "1">
                         </div>
     
                     </div>
@@ -63,10 +63,10 @@ foreach ($items as $item) {
                             <div class="row"></div>
                         </div>
                         <div class="col-sm-2 col-xs-6 text-center price">
-                             ' . $item['cost'] . ' руб.
+                             <div class = "visible-xs" style = "margin-top: 15px"><p class = "visible-xs" style = "color:#F5BE00">Цена</p>' . $item['cost'] . ' руб.</div>
                         </div>
                         <div class="col-sm-2 col-xs-6 text-center">
-                            <input class = "amount" type="number" value = "1" min = "1">
+                            <div class = "visible-xs" style = "margin-top: 15px"><p class = "visible-xs" style = "color:#F5BE00;font-family: \'Open Sans Bold\', sans-serif;">Кол-во</p><input class = "amount" type="number" value = "1" min = "1"></div>
                         </div>
     
                     </div>

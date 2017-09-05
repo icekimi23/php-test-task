@@ -116,3 +116,10 @@ input{
 #productList > :not(:last-child){
     border-bottom: 1px solid rgb(195,195,195);
 }
+
+@media (min-width: 768px) and (max-width: 991px){
+    .column-header-text {
+        position: relative;
+        right: 15px;
+    }
+}
