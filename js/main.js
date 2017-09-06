@@ -124,7 +124,7 @@ function countSummary() {
     let elems = bucket.querySelectorAll('.inner-wrapper');
 
     [].forEach.call(elems, function (elem) {
-        let price = parseFloat(elem.querySelector('.price').innerHTML) || 0;
+        let price = parseFloat(elem.querySelector('.price-inner').innerHTML) || 0;
         let amount = parseInt(elem.querySelector('.amount').value) || 0;
         summary += price * amount;
     });
