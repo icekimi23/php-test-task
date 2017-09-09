@@ -1,9 +1,9 @@
-let body = document.body;
-//let url = 'https://icekimi23.000webhostapp.com';
-let url = 'http://test-task.ru';
+var body = document.body;
+//var url = 'https://icekimi23.000webhostapp.com';
+var url = 'http://test-task.ru';
 
-let bucket = body.querySelector('#bucket');
-let productList = body.querySelector('#productList');
+var bucket = body.querySelector('#bucket');
+var productList = body.querySelector('#productList');
 
 countSummary();
 
@@ -14,20 +14,20 @@ body.addEventListener('change', onAmountChange);
 
 function onAmountChange(event) {
 
-    let target = event.target;
+    var target = event.target;
 
     if (!target.classList.contains('amount')) return;
 
-    let bucket = target.closest('#bucket');
+    var bucket = target.closest('#bucket');
 
     if (!bucket) return;
 
-    let liElem = target.closest('.inner-wrapper');
+    var liElem = target.closest('.inner-wrapper');
 
-    let id = liElem.querySelector('.id').value;
-    let amount = liElem.querySelector('.amount').value || 1;
+    var id = liElem.querySelector('.id').value;
+    var amount = liElem.querySelector('.amount').value || 1;
 
-    let queryString = 'id=' + id + '&amount=' + amount;
+    var queryString = 'id=' + id + '&amount=' + amount;
 
     $.ajax({
         url: url + '/updateAmount.php',
@@ -42,18 +42,18 @@ function onAmountChange(event) {
 
 function onAddToBucketClick(event) {
 
-    let target = event.target;
+    var target = event.target;
 
     if (!target.classList.contains('addToBucket')) return;
 
     event.preventDefault();
 
-    let liElem = target.closest('.inner-wrapper');
+    var liElem = target.closest('.inner-wrapper');
 
-    let id = liElem.querySelector('.id').value;
-    let amount = liElem.querySelector('.amount').value || 1;
+    var id = liElem.querySelector('.id').value;
+    var amount = liElem.querySelector('.amount').value || 1;
 
-    let queryString = 'id=' + id + '&amount=' + amount;
+    var queryString = 'id=' + id + '&amount=' + amount;
 
     $.ajax({
         url: url + '/addToBucket.php',
@@ -69,17 +69,17 @@ function onAddToBucketClick(event) {
 
 function onRemoveFromBucketClick(event) {
 
-    let target = event.target;
+    var target = event.target;
 
     event.preventDefault();
 
     if (!target.classList.contains('removeFromBucket')) return;
 
-    let liElem = target.closest('.inner-wrapper');
+    var liElem = target.closest('.inner-wrapper');
 
-    let id = liElem.querySelector('.id').value;
+    var id = liElem.querySelector('.id').value;
 
-    let queryString = 'id=' + id;
+    var queryString = 'id=' + id;
 
     $.ajax({
         url: url + '/removeFromBucket.php',
@@ -96,11 +96,11 @@ function onRemoveFromBucketClick(event) {
 
 function moveToBucket(elem) {
     bucket.appendChild(elem);
-    let btn = elem.querySelector('.addToBucket');
+    var btn = elem.querySelector('.addToBucket');
     btn.innerHTML = 'Удалить';
     btn.className = 'removeFromBucket';
 
-    let amount = elem.querySelector('.amount');
+    var amount = elem.querySelector('.amount');
     if (!parseInt(amount.value)){
         amount.value = 1;
     }
@@ -109,28 +109,28 @@ function moveToBucket(elem) {
 
 function moveFromBucket(elem) {
     productList.appendChild(elem);
-    let btn = elem.querySelector('.removeFromBucket');
+    var btn = elem.querySelector('.removeFromBucket');
     btn.innerHTML = 'В корзину';
     btn.className = 'addToBucket';
 
-    let amount = elem.querySelector('.amount');
+    var amount = elem.querySelector('.amount');
     amount.value = 1;
 
 }
 
 function countSummary() {
-    let summary = 0;
+    var summary = 0;
 
-    let elems = bucket.querySelectorAll('.inner-wrapper');
+    var elems = bucket.querySelectorAll('.inner-wrapper');
 
     [].forEach.call(elems, function (elem) {
-        let price = parseFloat(elem.querySelector('.price-inner').innerHTML) || 0;
-        let amount = parseInt(elem.querySelector('.amount').value) || 0;
+        var price = parseFloat(elem.querySelector('.price-inner').innerHTML) || 0;
+        var amount = parseInt(elem.querySelector('.amount').value) || 0;
         summary += price * amount;
     });
 
-    let cart = document.querySelector('.cart');
-    let summaryText = cart.querySelector('.summary-text');
+    var cart = document.querySelector('.cart');
+    var summaryText = cart.querySelector('.summary-text');
     summaryText.innerHTML = 'ИТОГО: ' + summary + ' руб.';
 
 }

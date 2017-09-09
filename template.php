@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 
 function formCategoryText($categoryArr) {
     $categoryText = implode($categoryArr,'<img class = "arrow-right" src="images/arrow_right.svg" alt="">');
@@ -63,7 +64,7 @@ foreach ($items as $item) {
                             <div class="row"></div>
                         </div>
                         <div class="col-sm-2 col-xs-6 text-center price">
-                             <p class = "visible-xs" style = "color:#F5BE00; margin-top: 15px">Цена</p>' . $item['cost'] . ' руб.
+                             <p class = "visible-xs" style = "color:#F5BE00; margin-top: 15px">Цена</p><div class = "price-inner">' . $item['cost'] . ' руб.</div>
                         </div>
                         <div class="col-sm-2 col-xs-6 text-center">
                             <p class = "visible-xs" style = "color:#F5BE00;font-family: \'Open Sans Bold\', sans-serif; margin-top: 15px">Кол-во</p><input class = "amount" type="number" value = "1" min = "1">
