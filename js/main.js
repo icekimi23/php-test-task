@@ -1,6 +1,5 @@
 var body = document.body;
-//var url = 'https://icekimi23.000webhostapp.com';
-var url = 'http://test-task.ru';
+var url = location.origin;
 
 var bucket = body.querySelector('#bucket');
 var productList = body.querySelector('#productList');
